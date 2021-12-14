@@ -27,6 +27,11 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     posts = db.relationship('Post', backref='author', lazy='dynamic')
+    #added v6
+    #Every time the database is modified it is necessary to generate a database migration
+    #python -m flask db migrate -m "new fields in user model"
+    about_me = db.Column(db.String(140))
+    last_seen = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -61,6 +66,14 @@ class Post(db.Model):
         return '<Post {}>'.format(self.body)
         
 
+def AddColumnsV6():
+   #about_me = db.Column(db.String(140))
+   #last_seen = db.Column(db.DateTime, default=datetime.utcnow)
+   from sqlalchemy import create_engine
+   engine = create_engine('sqlite:///app.db')
+   engine.execute('alter table user add column about_me String(140)')
+   engine.execute('alter table user add column last_seen dateTime')
+
 # add a row
 # comment out after the 1st run
 def InitialAdd():
@@ -78,8 +91,8 @@ def InitialAdd():
     db.session.add(u)
     db.session.commit()
 def ShowState():
-  users = User.query.all()
-  print(users)
+  users = User.query.all()  #while migrating v6
+  print(users)  
   for u in users:
     print(u.id, u.username)
   u = User.query.get(1)  
@@ -92,6 +105,7 @@ def ShowState():
   #  print(p.id, p.author.username, p.body)
   s = User.query.order_by(User.username.desc()).all()
   print(s)
+  
     
 '''    
 def DeleteAll():
@@ -114,5 +128,6 @@ def AddPosts():
   db.session.commit()
   '''
   
-ShowState()
+#AddColumnsV6() #only for v6  
+#ShowState()
 

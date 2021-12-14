@@ -1,0 +1,13 @@
+#14.12.2021
+When updating the DB: migrate doesn't work as wanted, errors.
+Sometimes it works after manually adding the new fields (call the functions once) but some errors in "Keyformatter" - too much to trace.
+Quering and printing in the intermediate state after calling migrate (which returns error) also returns errors etc.
+Deleting migrate files (versions and the other in migrations) don't solve the problem.
+
+def AddColumnsV6():
+   #about_me = db.Column(db.String(140))
+   #last_seen = db.Column(db.DateTime, default=datetime.utcnow)
+   from sqlalchemy import create_engine
+   engine = create_engine('sqlite:///app.db')
+   engine.execute('alter table user add column about_me String(140)')
+   engine.execute('alter table user add column last_seen dateTime')
