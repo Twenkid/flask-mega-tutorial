@@ -33,6 +33,13 @@ Please edit configuration/connection/logging settings in 'Z:\\flask\\microblog\\
 
 ## v7 - Errors 
 
+Debug mode vs production ... Console, stack trace ... don't activate on production server!
+
+```
+cmd /v /c "set FLASK_APP=microblog.py&&set FLASK_ENV=development&&flask run"
+cmd /v /c "set FLASK_APP=microblog.py&&set FLASK_ENV=production&&flask run"
+```
+
 Receive mail in the console:
 
 ```
