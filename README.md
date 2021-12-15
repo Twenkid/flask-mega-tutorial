@@ -34,7 +34,10 @@ Please edit configuration/connection/logging settings in 'Z:\\flask\\microblog\\
 ## v7 - Errors 
 
 Receive mail in the console:
+
+```
 python -m smtpd -n -c DebuggingServer localhost:8025
+```
 
 Users: aaaa 1111
 kur 1
