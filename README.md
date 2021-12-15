@@ -33,6 +33,12 @@ Please edit configuration/connection/logging settings in 'Z:\\flask\\microblog\\
 
 ## v7 - Errors 
 
+Install: 
+```
+python -m pip install Werkzeug==0.15.6
+```
+0.15.5 - bug when turning on the development mode
+
 Debug mode vs production ... Console, stack trace ... don't activate on production server!
 
 ```
