@@ -1,0 +1,13 @@
+aaaa
+1111
+
+a
+1
+
+kur
+1
+
+hui
+1
+
+//too short pass - aaaa,1111 OK for the hash
