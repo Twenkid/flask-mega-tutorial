@@ -86,3 +86,23 @@ avatar= https://www.gravatar.com/avatar/a3cdcf905995a6e83ca1e78c81cb6c47?d=ident
 127.0.0.1 - - [15/Dec/2021 19:43:42] "←[32mGET /index HTTP/1.1←[0m" 302 -
 127.0.0.1 - - [15/Dec/2021 19:43:42] "←[37mGET /login?next=%2Findex HTTP/1.1←[0m" 200 -
 ```
+
+## v8
+16.12.2021
+
+Followers, foreign keys, followers and followed by, emptyform, ... OK
+
+Manually creating the followers table with a one-time call, migrate upgrade sequence fails, KeyFormatter ...
+
+In models.py
+
+```
+def AddFollowersV8():
+   print("AddFollowersV8")
+   from sqlalchemy import create_engine
+   engine = create_engine('sqlite:///app.db')   
+   engine.execute('CREATE TABLE followers(follower_id Integer, followed_id Integer, FOREIGN KEY(follower_id) references users(user_id), FOREIGN KEY(followed_id) references users(user_id))')
+   print("#AFTER ... engine.execute('CREATE TABLE followers ...")
+
+AddFollowersV8()
+```
