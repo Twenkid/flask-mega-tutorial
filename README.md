@@ -112,4 +112,6 @@ AddFollowersV8()
 17.12.2021
 ~ 60 min
 
+PostForm ... paginate ... posts.items ...  return redirect(url_for('index'))
+
 
