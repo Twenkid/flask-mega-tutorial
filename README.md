@@ -114,4 +114,6 @@ AddFollowersV8()
 
 PostForm ... paginate ... posts.items ...  return redirect(url_for('index'))
 
+## v10 - Email, token jwt, ResetPasswordRequestForm ...
 
+~ 34 min (without the upload)
