@@ -122,3 +122,5 @@ PostForm ... paginate ... posts.items ...  return redirect(url_for('index'))
 
 ~ 17 - 21 min
 
+pip install flask-bootstrap
+
