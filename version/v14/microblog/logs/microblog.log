@@ -1,0 +1,56 @@
+2021-12-20 23:53:41,250 INFO: Microblog startup [in Z:\flask\microblog\app\__init__.py:62]
+2021-12-20 23:53:49,103 ERROR: Exception on /index [GET] [in C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py:1777]
+Traceback (most recent call last):
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2311, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1834, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1737, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 36, in reraise
+    raise value
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1830, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2106, in preprocess_request
+    rv = func()
+  File "Z:\flask\microblog\app\routes.py", line 121, in before_request
+    g.locale = str(get_locale())
+NameError: name 'get_locale' is not defined
+2021-12-20 23:54:53,477 INFO: Microblog startup [in Z:\flask\microblog\app\__init__.py:62]
+2021-12-20 23:55:00,241 ERROR: Exception on /index [GET] [in C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py:1777]
+Traceback (most recent call last):
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2311, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1834, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1737, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 36, in reraise
+    raise value
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1830, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2106, in preprocess_request
+    rv = func()
+  File "Z:\flask\microblog\app\routes.py", line 121, in before_request
+    g.locale = str(get_locale())
+NameError: name 'get_locale' is not defined
+2021-12-20 23:55:03,506 ERROR: Exception on /index [GET] [in C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py:1777]
+Traceback (most recent call last):
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2311, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1834, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1737, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 36, in reraise
+    raise value
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1830, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2106, in preprocess_request
+    rv = func()
+  File "Z:\flask\microblog\app\routes.py", line 121, in before_request
+    g.locale = str(get_locale())
+NameError: name 'get_locale' is not defined
+2021-12-20 23:55:18,521 INFO: Microblog startup [in Z:\flask\microblog\app\__init__.py:62]
+2021-12-20 23:56:18,761 INFO: Microblog startup [in Z:\flask\microblog\app\__init__.py:62]
+2021-12-21 00:00:25,512 INFO: Microblog startup [in Z:\flask\microblog\app\__init__.py:62]
