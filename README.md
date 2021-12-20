@@ -119,12 +119,40 @@ PostForm ... paginate ... posts.items ...  return redirect(url_for('index'))
 ~ 34 min (without the upload)
 
 ## v11 - Bootstrap CSS framework ...
+19.12.2021
 
 ~ 17 - 21 min
 
 pip install flask-bootstrap
 
 ## v12 - Time formatting, moment, js ... 
+19.12.2021
 
 ~ 13 - 14 min
+
+## v13, v14 - flask-babel (localisation), ... translation via Microsoft Azure API, js ...
+
+20.12.2021
+
+
+--> start Elasticsearch v15 ... (Install, configure:...)
+
+Edit jvm.options
+Add:
+
+-Xms262m
+-Xmx262m
+
+(default 4G - too big)
+
+A comment suggests to add a file in the directory:
+jvm.options.d
+however adding it didn't change the config.
+
+(Elastic 7.16.2)
+
+with 4G it demands to allocate 17 GB memory.
+
+Issues with the RAM disk drivers (probably), like with Rust cargo.
+See log: ...
 
