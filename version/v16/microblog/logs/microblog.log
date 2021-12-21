@@ -1,0 +1,81 @@
+2021-12-21 20:44:02,236 INFO: Microblog startup [in Z:\v16\microblog\app\__init__.py:77]
+2021-12-21 20:55:18,051 INFO: Microblog startup [in Z:\v16\microblog\app\__init__.py:77]
+2021-12-21 20:55:26,968 ERROR: Exception on /search [GET] [in C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py:1777]
+Traceback (most recent call last):
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2311, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1834, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1737, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 36, in reraise
+    raise value
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1832, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1818, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask_login\utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "Z:\v16\microblog\app\main\routes.py", line 151, in search
+    println("ERROR: if not g.search_form.validate():...")
+NameError: name 'println' is not defined
+2021-12-21 20:55:29,465 ERROR: Exception on /search [GET] [in C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py:1777]
+Traceback (most recent call last):
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2311, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1834, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1737, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 36, in reraise
+    raise value
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1832, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1818, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask_login\utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "Z:\v16\microblog\app\main\routes.py", line 151, in search
+    println("ERROR: if not g.search_form.validate():...")
+NameError: name 'println' is not defined
+2021-12-21 20:56:22,476 ERROR: Exception on /search [GET] [in C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py:1777]
+Traceback (most recent call last):
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2311, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1834, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1737, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 36, in reraise
+    raise value
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1832, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1818, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask_login\utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "Z:\v16\microblog\app\main\routes.py", line 151, in search
+    print("ERROR: if not g.search_form.validate():...")
+NameError: name 'println' is not defined
+2021-12-21 20:56:27,533 ERROR: Exception on /search [GET] [in C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py:1777]
+Traceback (most recent call last):
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2311, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1834, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1737, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 36, in reraise
+    raise value
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1832, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1818, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\toshb\AppData\Local\Programs\Python\Python39\lib\site-packages\flask_login\utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "Z:\v16\microblog\app\main\routes.py", line 151, in search
+    print("ERROR: if not g.search_form.validate():...")
+NameError: name 'println' is not defined
+2021-12-21 20:56:46,862 INFO: Microblog startup [in Z:\v16\microblog\app\__init__.py:77]
+2021-12-21 20:59:03,005 INFO: Microblog startup [in Z:\v16\microblog\app\__init__.py:77]
+2021-12-21 21:00:25,725 INFO: Microblog startup [in Z:\v16\microblog\app\__init__.py:77]
