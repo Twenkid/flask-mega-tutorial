@@ -156,3 +156,61 @@ with 4G it demands to allocate 17 GB memory.
 Issues with the RAM disk drivers (probably), like with Rust cargo.
 See log: ...
 
+
+## v15 - Downloaded, added my app.db in 
+
+21.12.2021
+
+Better app structure.
+Cloned from Miguel's, added my app.db.
+
+
+## v16 - Elasticsearch ...
+
+21.12.2021
+
+- I cloned the Miguel's repository, but added my app.db to the folder of config.py etc.
+Also I had to comment one form validation which was causing an error.
+
+* Install Elastic and run it:
+
+http://localhost:9200
+
+It doesn't start correctly on a RAM disk (imdisk).
+
+Set the env.variable when calling: 
+``` 
+cmd /v /c "set FLASK_APP=microblog.py&&set FLASK_ENV=production&&set MAIL_SERVER=localhost&&set MAIL_PORT=8025&&set ELASTICSEARCH_URL=http://localhost:9200&&flask run"
+```
+(Or/and set in in the .env file in the folder /microblog  with microblog.py, config.pt)
+
+While Elastic is running, add new posts: they will be added to the Elastic index.
+Search.
+
+It finds only exact word matches, as it is here.
+
+Changes from the tutorial:
+
+In routes.py:  I commented the search form validation, it always throws exception, but there's not error.
+
+```
+@bp.route('/search')
+@login_required
+def search():
+    #if not g.search_form.validate():
+    #    print("ERROR: if not g.search_form.validate():...")    
+    #    return redirect(url_for('main.explore'))
+    page = request.args.get('page', 1, type=int)
+    posts, total = Post.search(g.search_form.q.data, page,
+                               current_app.config['POSTS_PER_PAGE'])
+    next_url = url_for('main.search', q=g.search_form.q.data, page=page + 1) \
+        if total > page * current_app.config['POSTS_PER_PAGE'] else None
+    prev_url = url_for('main.search', q=g.search_form.q.data, page=page - 1) \
+        if page > 1 else None
+    return render_template('search.html', title=_('Search'), posts=posts,
+                           next_url=next_url, prev_url=prev_url)
+```
+
+
+
+
