@@ -1,4 +1,0 @@
-python -m smtpd -n -c DebuggingServer localhost:8025
-cmd /v /c "set FLASK_APP=microblog.py&&set FLASK_ENV=production&&set MAIL_SERVER=localhost&&set MAIL_PORT=8025&&flask run"
-REM or just (no email)
-cmd /v /c "set FLASK_APP=microblog.py&&set FLASK_ENV=development&& flask run"
