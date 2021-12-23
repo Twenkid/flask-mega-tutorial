@@ -213,4 +213,9 @@ def search():
 
 
 
+__Useful links:__
+https://www.pythonsheets.com/notes/python-sqlalchemy.html
+
+## v20 - AJAX js jQuery popup ...
+...
 
