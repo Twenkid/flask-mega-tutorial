@@ -217,5 +217,8 @@ __Useful links:__
 https://www.pythonsheets.com/notes/python-sqlalchemy.html
 
 ## v20 - AJAX js jQuery popup ...
-...
+
+24.12.2021
+
+base.html
 
