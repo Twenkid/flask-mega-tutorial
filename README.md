@@ -222,3 +222,97 @@ https://www.pythonsheets.com/notes/python-sqlalchemy.html
 
 base.html
 
+
+## v21 - Messages and Notifications ... 
+
+#30.12.2021
+```
+Creation of the new DB tables etc.
+(without foreign keys and a few others;
+ migrate didn't work in the previous versions,
+ so I used sqlite console. SQLite doesn't support
+alter table add constraint (?) and would require
+to recreate the table (copy to a new one etc.?)
+
+The app worked anyway.
+
+c:\DB\sqlite>sqlite3 Z:\v21\microblog\app.db
+SQLite version 3.37.0 2021-11-27 14:13:22
+Enter ".help" for usage hints.
+sqlite> Create table Notification(
+   ...>   id INTEGER PRIMARY KEY,
+   ...>     name TEXT(128),
+   ...>     user_id  INTEGER,
+   ...> timestamp DateTime default(NOW()),
+   ...> payload_json TEXT
+   ...> );
+sqlite> alter table user add column last_message_read_time;
+
+v21
+
+class Message(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    sender_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    recipient_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    body = db.Column(db.String(140))
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+	
+	==>
+
+CREATE TABLE Message (
+    id INTEGER PRIMARY KEY, 
+    sender_id INTEGER, 
+    recipient_id  INTEGER,
+	body TEXT(140),
+	timestamp DateTime default(NOW()),
+    FOREIGN KEY(sender_id) REFERENCES user(id),
+	FOREIGN KEY(recipient_id) REFERENCES user(id)
+	);
+	
+	
+	class Notification(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(128), index=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    timestamp = db.Column(db.Float, index=True, default=time)
+    payload_json = db.Column(db.Text)
+
+
+class User(UserMixin, db.Model):
+    # ...
+    notifications = db.relationship('Notification', backref='user',
+                                    lazy='dynamic')
+    ? How in SQL?
+	OrderID REFERENCES Orders(ID)
+	user - table, notification is table 
+	
+
+==>
+
+Create table Notification(
+  id INTEGER PRIMARY KEY, 
+    name TEXT(128), 
+    user_id  INTEGER,	
+	timestamp DateTime default(NOW()),
+	payload_json TEXT
+	
+	
+);
+
+alter table user add column last_message_read_time;
+
+XXXXXX
+	
+class User(UserMixin, db.Model):
+ messages_sent = db.relationship('Message',
+                                    foreign_keys='Message.sender_id',
+                                    backref='author', lazy='dynamic')
+    messages_received = db.relationship('Message',
+                                        foreign_keys='Message.recipient_id',
+                                        backref='recipient', lazy='dynamic')
+    last_message_read_time = db.Column(db.DateTime)
+
+
+Alter table user add column messages_read_time Datetime;
+
+```
