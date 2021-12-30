@@ -1,0 +1,172 @@
+#30.12.2021
+
+Creation of the new DB tables etc.
+(without foreign keys and a few others;
+ migrate didn't work in the previous versions,
+ so I used sqlite console. SQLite doesn't support
+alter table add constraint (?) and would require
+to recreate the table (copy to a new one etc.?)
+
+The app worked anyway.
+
+c:\DB\sqlite>sqlite3 Z:\v21\microblog\app.db
+SQLite version 3.37.0 2021-11-27 14:13:22
+Enter ".help" for usage hints.
+sqlite> Create table Notification(
+   ...>   id INTEGER PRIMARY KEY,
+   ...>     name TEXT(128),
+   ...>     user_id  INTEGER,
+   ...> timestamp DateTime default(NOW()),
+   ...> payload_json TEXT
+   ...> );
+sqlite> alter table user add column last_message_read_time;
+
+v21
+
+class Message(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    sender_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    recipient_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    body = db.Column(db.String(140))
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+	
+	==>
+
+CREATE TABLE Message (
+    id INTEGER PRIMARY KEY, 
+    sender_id INTEGER, 
+    recipient_id  INTEGER,
+	body TEXT(140),
+	timestamp DateTime default(NOW()),
+    FOREIGN KEY(sender_id) REFERENCES user(id),
+	FOREIGN KEY(recipient_id) REFERENCES user(id)
+	);
+	
+	
+	class Notification(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(128), index=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    timestamp = db.Column(db.Float, index=True, default=time)
+    payload_json = db.Column(db.Text)
+
+
+class User(UserMixin, db.Model):
+    # ...
+    notifications = db.relationship('Notification', backref='user',
+                                    lazy='dynamic')
+    ? How in SQL?
+	OrderID REFERENCES Orders(ID)
+	user - table, notification is table 
+	
+
+==>
+
+Create table Notification(
+  id INTEGER PRIMARY KEY, 
+    name TEXT(128), 
+    user_id  INTEGER,	
+	timestamp DateTime default(NOW()),
+	payload_json TEXT
+	
+	
+);
+
+alter table user add column last_message_read_time;
+
+XXXXXX
+	
+class User(UserMixin, db.Model):
+ messages_sent = db.relationship('Message',
+                                    foreign_keys='Message.sender_id',
+                                    backref='author', lazy='dynamic')
+    messages_received = db.relationship('Message',
+                                        foreign_keys='Message.recipient_id',
+                                        backref='recipient', lazy='dynamic')
+    last_message_read_time = db.Column(db.DateTime)
+
+
+Alter table user add column messages_read_time Datetime;
+
+Alter table user add foreign_key(messages_received) References Message(recipient_id);
+
+
+#24.12.2021
+
+v20 - AJAX js jQuery popup ...
+
+base.html
+
+#21.12.2021
+
+v16 - Elasticsearch ...
+
+Install Elastic and run it
+http://localhost:9200
+It doesn't start correctly on a RAM disk (imdisk).
+Set the env.variable...
+
+cmd /v /c "set FLASK_APP=microblog.py&&set FLASK_ENV=production&&set MAIL_SERVER=localhost&&set MAIL_PORT=8025&&set ELASTICSEARCH_URL=http://localhost:9200&&flask run"
+
+While it is running, add new posts.
+Search.
+It finds only exact word matches, as it is here.
+
+Changes from the tutorial:
+In routes.py: I commented the search form validation, it always throws exception, but there's not error.
+
+
+@bp.route('/search')
+@login_required
+def search():
+    #if not g.search_form.validate():
+    #    print("ERROR: if not g.search_form.validate():...")    
+    #    return redirect(url_for('main.explore'))
+    page = request.args.get('page', 1, type=int)
+    posts, total = Post.search(g.search_form.q.data, page,
+                               current_app.config['POSTS_PER_PAGE'])
+    next_url = url_for('main.search', q=g.search_form.q.data, page=page + 1) \
+        if total > page * current_app.config['POSTS_PER_PAGE'] else None
+    prev_url = url_for('main.search', q=g.search_form.q.data, page=page - 1) \
+        if page > 1 else None
+    return render_template('search.html', title=_('Search'), posts=posts,
+                           next_url=next_url, prev_url=prev_url)
+
+
+
+#21.12.2021
+v15 - Downloaded, added my app.db in 
+
+Better app structure.
+
+
+#18.12.2021
+v10 - email, reset password, ...
+
+
+#16.12.2021
+
+models.py
+
+def AddFollowersV8():
+   print("AddFollowersV8") 
+   from sqlalchemy import create_engine
+   engine = create_engine('sqlite:///app.db')
+   engine.execute('CREATE TABLE followers(follower_id Integer, followed_id Integer, FOREIGN KEY(follower_id) references users(user_id), FOREIGN KEY(followed_id) references users(user_id))')
+   print("#AFTER ... engine.execute('CREATE TABLE followers ...")
+
+#14.12.2021
+When updating the DB: migrate doesn't work as wanted, errors.
+Sometimes it works after manually adding the new fields (call the functions once) but some errors in "Keyformatter" - too much to trace.
+Quering and printing in the intermediate state after calling migrate (which returns error) also returns errors etc.
+Deleting migrate files (versions and the other in migrations) don't solve the problem.
+
+def AddColumnsV6():
+   #about_me = db.Column(db.String(140))
+   #last_seen = db.Column(db.DateTime, default=datetime.utcnow)
+   from sqlalchemy import create_engine
+   engine = create_engine('sqlite:///app.db')
+   engine.execute('alter table user add column about_me String(140)')
+   engine.execute('alter table user add column last_seen dateTime')
+
+
