@@ -316,3 +316,13 @@ class User(UserMixin, db.Model):
 Alter table user add column messages_read_time Datetime;
 
 ```
+# V22 - Async Jobs ... Background ...
+
+RQ -> Redis ...  (Redis Queue) 
+Celery 
+Task queues
+
+RQ - simpler
+Requires a running Redis server.
+
+
