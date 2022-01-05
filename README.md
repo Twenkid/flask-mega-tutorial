@@ -331,7 +331,35 @@ Requires a running Redis server.
 
 Install redis, rq:
 
-python -m pip install redis rq flask-httpauth
+python -m pip install redis rq flask-httpauth httpie
+
+```
+C:\Users\toshb>python -m httpie --auth aaaa:1111 POST http://localhost:5000/api/tokens
+HTTP/1.0 200 OK
+Content-Length: 50
+Content-Type: application/json
+Date: Wed, 05 Jan 2022 02:58:40 GMT
+Server: Werkzeug/0.15.6 Python/3.9.7
+
+{
+    "token": "D+K+LLsvH3DMUkC0c/blAZky+AfwX/qe"
+}
+C:\Users\toshb>python -m httpie GET http://localhost:5000/api/users/aaaa "Authorization:Bearer D+K+LLsvH3DMUkC0c/blAZky+AfwX/qe"
+HTTP/1.0 404 NOT FOUND
+Content-Length: 27
+Content-Type: application/json
+Date: Wed, 05 Jan 2022 02:59:39 GMT
+Server: Werkzeug/0.15.6 Python/3.9.7
+
+{
+    "error": "Not Found"
+}
+```
+WHY not found?
+(nothing helped, " position change, other users etc. (there's an example command with " after : before Bearer).
+Change of the token also returns "Not Found", not "wrong token".
+
+...
 
 Added the V22 changes of the DB via SQLite CLI by readint the python models.py definitions:
 
