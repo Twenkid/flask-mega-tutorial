@@ -354,6 +354,7 @@ alter table User add column token Text(32);
 alter table User add column token_expiration DATETIME;
 
 CREATE UNIQUE INDEX ux_token on user(token);
+```
 
 ![image](https://user-images.githubusercontent.com/23367640/148152776-475d9975-d799-46e7-983d-ace6c03999b7.png)
 
