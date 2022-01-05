@@ -329,6 +329,10 @@ Requires a running Redis server.
 ## V23 - ...
 5.1.2022
 
+Install redis, rq:
+
+python -m pip install redis rq
+
 Added the V22 changes of the DB via SQLite CLI by readint the python models.py definitions:
 
 ```
