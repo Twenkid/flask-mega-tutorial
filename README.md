@@ -326,3 +326,35 @@ RQ - simpler
 Requires a running Redis server.
 
 
+## V23 - ...
+5.1.2022
+
+Added the V22 changes of the DB via SQLite CLI by readint the python models.py definitions:
+
+```
+
+class Task(db.Model):
+    id = db.Column(db.String(36), primary_key=True)
+    name = db.Column(db.String(128), index=True)
+    description = db.Column(db.String(128))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    complete = db.Column(db.Boolean, default=False)
+	
+
+Create table Task(
+ id Text(36) Primary Key,
+ name Text(128),
+ description TEXT(128),
+ user_id Integer,
+ complete Boolean,
+ Foreign Key(user_id) References User(id)
+);
+ 
+alter table User add column token Text(32);
+alter table User add column token_expiration DATETIME;
+
+CREATE UNIQUE INDEX ux_token on user(token);
+
+![image](https://user-images.githubusercontent.com/23367640/148152776-475d9975-d799-46e7-983d-ace6c03999b7.png)
+
+ 
