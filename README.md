@@ -331,7 +331,7 @@ Requires a running Redis server.
 
 Install redis, rq:
 
-python -m pip install redis rq
+python -m pip install redis rq flask-httpauth
 
 Added the V22 changes of the DB via SQLite CLI by readint the python models.py definitions:
 
