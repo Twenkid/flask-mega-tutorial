@@ -355,9 +355,138 @@ Server: Werkzeug/0.15.6 Python/3.9.7
     "error": "Not Found"
 }
 ```
-WHY not found?
+?) WHY not found?
 (nothing helped, " position change, other users etc. (there's an example command with " after : before Bearer).
 Change of the token also returns "Not Found", not "wrong token".
+
+?=) The query had to be with the primary key ID, i.e. user "aaaa" was 8.
+```
+#last_seen = db.Column(db.DateTime, default=datetime.utcnow)
+
+C:\Users\toshb>python -m httpie --auth aaaa:1111 POST http://localhost:5000/api/tokens
+HTTP/1.0 200 OK
+Content-Length: 50
+Content-Type: application/json
+Date: Thu, 06 Jan 2022 00:25:56 GMT
+Server: Werkzeug/0.15.6 Python/3.9.7
+
+{
+    "token": "C6LiysXWMF123EEJV6Xs0j7WJHV92pNA"
+}
+
+python -m httpie GET http://localhost:5000/api/users/8/followed "Authorization:Bearer C6LiysXWMF123EEJV6Xs0j7WJHV92pNA"
+C:\Users\toshb>python -m httpie GET http://localhost:5000/api/users/8 "Authorization:Bearer C6LiysXWMF123EEJV6Xs0j7WJHV92pNA"
+HTTP/1.0 200 OK
+Content-Length: 518
+Content-Type: application/json
+Date: Thu, 06 Jan 2022 00:49:34 GMT
+Server: Werkzeug/0.15.6 Python/3.9.7
+
+{
+    "_links": {
+        "avatar": "https://www.gravatar.com/avatar/a3cdcf905995a6e83ca1e78c81cb6c47?d=identicon&s=128",
+        "followed": "/api/users/8/followed",
+        "followers": "/api/users/8/followers",
+        "self": "/api/users/8"
+    },
+    "about_me": "Kurkurhuio sdkods fksadjf spodfj weoigjw 0gj430 gjdofg jdfog dfiogj dfo9g jdfoig jdfoigj dfoigj dfoigj dfoig jdfoigj dfoigjdiofg fdg dfg dg",
+    "followed_count": 2,
+    "follower_count": 1,
+    "id": 8,
+    "last_seen": "Z",
+    "post_count": 9,
+    "username": "aaaa"
+}
+
+C:\Users\toshb>python -m httpie GET http://localhost:5000/api/users/9 "Authorization:Bearer C6LiysXWMF123EEJV6Xs0j7WJHV92pNA"
+HTTP/1.0 200 OK
+Content-Length: 407
+Content-Type: application/json
+Date: Thu, 06 Jan 2022 00:50:51 GMT
+Server: Werkzeug/0.15.6 Python/3.9.7
+
+{
+    "_links": {
+        "avatar": "https://www.gravatar.com/avatar/7eefa77c260638c48ef7de297135b0c3?d=identicon&s=128",
+        "followed": "/api/users/9/followed",
+        "followers": "/api/users/9/followers",
+        "self": "/api/users/9"
+    },
+    "about_me": null,
+    "followed_count": 1,
+    "follower_count": 1,
+    "id": 9,
+    "last_seen": "2022-01-06T00:50:44.789977Z",
+    "post_count": 1,
+    "username": "bbbb"
+}
+
+C:\Users\toshb>python -m httpie GET http://localhost:5000/api/users/5 "Authorization:Bearer C6LiysXWMF123EEJV6Xs0j7WJHV92pNA"
+HTTP/1.0 200 OK
+Content-Length: 380
+Content-Type: application/json
+Date: Thu, 06 Jan 2022 00:51:08 GMT
+Server: Werkzeug/0.15.6 Python/3.9.7
+
+{
+    "_links": {
+        "avatar": "https://www.gravatar.com/avatar/37a80b792a743c13e52ac1d34972d740?d=identicon&s=128",
+        "followed": "/api/users/5/followed",
+        "followers": "/api/users/5/followers",
+        "self": "/api/users/5"
+    },
+    "about_me": null,
+    "followed_count": 0,
+    "follower_count": 1,
+    "id": 5,
+    "last_seen": "Z",
+    "post_count": 0,
+    "username": "kur"
+}
+
+```
+**followed** query
+
+```
+C:\Users\toshb>python -m httpie GET http://localhost:5000/api/users/9/followed "Authorization:Bearer C6LiysXWMF123EEJV6Xs0j7WJHV92pNA"
+HTTP/1.0 200 OK
+Content-Length: 812
+Content-Type: application/json
+Date: Thu, 06 Jan 2022 00:41:35 GMT
+Server: Werkzeug/0.15.6 Python/3.9.7
+
+{
+    "_links": {
+        "next": null,
+        "prev": null,
+        "self": "/api/users/9/followed?page=1&per_page=10"
+    },
+    "_meta": {
+        "page": 1,
+        "per_page": 10,
+        "total_items": 1,
+        "total_pages": 1
+    },
+    "items": [
+        {
+            "_links": {
+                "avatar": "https://www.gravatar.com/avatar/a3cdcf905995a6e83ca1e78c81cb6c47?d=identicon&s=128",
+                "followed": "/api/users/8/followed",
+                "followers": "/api/users/8/followers",
+                "self": "/api/users/8"
+            },
+            "about_me": "Kurkurhuio sdkods fksadjf spodfj weoigjw 0gj430 gjdofg jdfog dfiogj dfo9g jdfoig jdfoigj dfoigj dfoigj dfoig jdfoigj dfoigjdiofg fdg dfg dg",
+            "followed_count": 2,
+            "follower_count": 1,
+            "id": 8,
+            "last_seen": "Z",
+            "post_count": 9,
+            "username": "aaaa"
+        }
+    ]
+}
+```
+
 
 ...
 
@@ -386,6 +515,16 @@ alter table User add column token Text(32);
 alter table User add column token_expiration DATETIME;
 
 CREATE UNIQUE INDEX ux_token on user(token);
+```
+
+* Edited in order to avoid NONE error when last_seen is missing (in some users)
+
+```
+\app\models.py
+
+ def to_dict(self, include_email=False):
+        last = 'Z' #if None, don't crash #todor
+        if self.last_seen: last = self.last_seen.isoformat() + 'Z' #if ... todor
 ```
 
 ![image](https://user-images.githubusercontent.com/23367640/148152776-475d9975-d799-46e7-983d-ace6c03999b7.png)
