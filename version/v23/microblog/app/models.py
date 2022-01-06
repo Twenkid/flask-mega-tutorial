@@ -96,6 +96,7 @@ class User(UserMixin, PaginatedAPIMixin, db.Model):
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     about_me = db.Column(db.String(140))
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
+    #print("LAST SEEN", last_seen)
     token = db.Column(db.String(32), index=True, unique=True)
     token_expiration = db.Column(db.DateTime)
     followed = db.relationship(
@@ -188,10 +189,12 @@ class User(UserMixin, PaginatedAPIMixin, db.Model):
                                     complete=False).first()
 
     def to_dict(self, include_email=False):
+        last = 'Z' #if None, don't crash #todor
+        if self.last_seen: last = self.last_seen.isoformat() + 'Z' #if ... todor
         data = {
             'id': self.id,
             'username': self.username,
-            'last_seen': self.last_seen.isoformat() + 'Z',
+            'last_seen': last,
             'about_me': self.about_me,
             'post_count': self.posts.count(),
             'follower_count': self.followers.count(),
