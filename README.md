@@ -1,7 +1,40 @@
 # flask-mega-tutorial
 
-Miguel ...
+An awesome tutorial by Miguel Grinberg: https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xxiii-application-programming-interfaces-apis
 
+Download specific folders (versions) from my take on it:
+https://downgit.github.io/
+https://github.com/Twenkid/flask-mega-tutorial/tree/main/version/v23 
+
+etc.
+
+``` 
+cmd /v /c "set FLASK_APP=microblog.py&&set FLASK_ENV=production&&set MAIL_SERVER=localhost&&set MAIL_PORT=8025&&set ELASTICSEARCH_URL=http://localhost:9200&&flask run"
+cmd /v /c "set FLASK_APP=microblog.py&&set FLASK_ENV=development&&set MAIL_SERVER=localhost&&set MAIL_PORT=8025&&set ELASTICSEARCH_URL=http://localhost:9200&&flask run"
+
+python -m smtpd -n -c DebuggingServer localhost:8025
+
+http://localhost:9200    
+```
+
+1) Start development or production
+2) Email server - prints in the console
+3) Elastic default address
+
+...
+
+(...) flask shell ...
+
+migrate
+upgrade ... didn't work for some reason (Keyformatter etc.), not tracked.
+
+My work around: invoking SQL commands in the program or via the sql CLI sqlite3> ...
+
+Some useful libraries, tools ... within the tutorial:
+
+Elastic search, RQ, redis-server, httpie, babel, sqlite, sqlaclhemy, ...
+
+...
 
 Z:\flask\microblog> cmd /v /c "set FLASK_APP=microblog.py&& flask run"
 
