@@ -562,4 +562,92 @@ CREATE UNIQUE INDEX ux_token on user(token);
 
 ![image](https://user-images.githubusercontent.com/23367640/148152776-475d9975-d799-46e7-983d-ace6c03999b7.png)
 
+
+## V19 ... 
+13.1.2022
+
+Docker container ...
+Install Docker ...
+Docker Desktop
+WSL2 - Ubuntu 20.04 ...
+
+Note that it's not persistent. After running it (below it redirects ports to 8000, not 5000 as above), it will not store persistently the users, posts etc. after stopping and restarting the container!
+(That would need to export etc.)
+
+See do.txt and:
+
+https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xix-deployment-on-docker-containers
+
+
+Dockerfile: ////
+```
+FROM python:slim
+
+RUN useradd microblog
+
+WORKDIR /home/microblog
+
+COPY requirements.txt requirements.txt
+RUN python -m venv venv
+RUN venv/bin/pip install -r requirements.txt
+RUN venv/bin/pip install gunicorn pymysql cryptography
+
+COPY app app
+COPY migrations migrations
+COPY microblog.py config.py boot.sh ./
+RUN chmod a+x boot.sh
+
+ENV FLASK_APP microblog.py
+
+RUN chown -R microblog:microblog ./
+USER microblog
+
+EXPOSE 5000
+ENTRYPOINT ["./boot.sh"]
+```
+/// END Dockerfile
+
+boot.sh: Docker container start-up script.
+```
+#!/bin/bash
+source venv/bin/activate
+flask db upgrade
+flask translate compile
+exec gunicorn -b :5000 --access-logfile - --error-logfile - microblog:app
+```
+
+
+////
+Dockerfile and boot.sh are in microblob directory
+
+From there:
+
+```
+docker build -t microblog:latest .
+
+```
+Z:\v19>docker images
+REPOSITORY                  TAG       IMAGE ID       CREATED          SIZE
+microblog                   latest    fbea685528c1   33 minutes ago   330MB
+docker101tutorial           latest    781e69fcc82c   34 hours ago     28.8MB
+twenkid/docker101tutorial   latest    781e69fcc82c   34 hours ago     28.8MB
+alpine/git                  latest    c6b70534b534   7 weeks ago      27.4MB
+```
+
+docker run --name microblog -d -p 8000:5000 --rm microblog:latest
+6f80a3b00273   
+
+Z:\v19>docker ps
+CONTAINER ID   IMAGE              COMMAND       CREATED          STATUS          PORTS                    NAMES
+6f80a3b00273   microblog:latest   "./boot.sh"   15 minutes ago   Up 15 minutes   0.0.0.0:8000->5000/tcp   microblog
+
+Z:\v19>docker stop 6f80a3b00273
+6f80a3b00273
+
+docker run --name microblog -d -p 8000:5000 --rm -e SECRET_KEY=my-secret-key ^
+    -e MAIL_SERVER=smtp.googlemail.com -e MAIL_PORT=587 -e MAIL_USE_TLS=true  ^
+    -e MAIL_USERNAME=asasa -e MAIL_PASSWORD=xxx ^
+    microblog:latest
+```    
+
  
