@@ -1,0 +1,61 @@
+https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xix-deployment-on-docker-containers
+
+Dockerfile: ////
+
+FROM python:slim
+
+RUN useradd microblog
+
+WORKDIR /home/microblog
+
+COPY requirements.txt requirements.txt
+RUN python -m venv venv
+RUN venv/bin/pip install -r requirements.txt
+RUN venv/bin/pip install gunicorn pymysql cryptography
+
+COPY app app
+COPY migrations migrations
+COPY microblog.py config.py boot.sh ./
+RUN chmod a+x boot.sh
+
+ENV FLASK_APP microblog.py
+
+RUN chown -R microblog:microblog ./
+USER microblog
+
+EXPOSE 5000
+ENTRYPOINT ["./boot.sh"]
+
+/// END Dockerfile
+
+boot.sh: Docker container start-up script.
+
+#!/bin/bash
+source venv/bin/activate
+flask db upgrade
+flask translate compile
+exec gunicorn -b :5000 --access-logfile - --error-logfile - microblog:app
+
+
+
+////
+Dockerfile and boot.sh are in microblob directory
+
+From there:
+
+docker build -t microblog:latest .
+
+docker run --name microblog -d -p 8000:5000 --rm microblog:latest
+6f80a3b00273   
+
+Z:\v19>docker ps
+CONTAINER ID   IMAGE              COMMAND       CREATED          STATUS          PORTS                    NAMES
+6f80a3b00273   microblog:latest   "./boot.sh"   15 minutes ago   Up 15 minutes   0.0.0.0:8000->5000/tcp   microblog
+
+Z:\v19>docker stop 6f80a3b00273
+6f80a3b00273
+
+docker run --name microblog -d -p 8000:5000 --rm -e SECRET_KEY=my-secret-key ^
+    -e MAIL_SERVER=smtp.googlemail.com -e MAIL_PORT=587 -e MAIL_USE_TLS=true  ^
+    -e MAIL_USERNAME=asasa -e MAIL_PASSWORD=xxx ^
+    microblog:latest
