@@ -30,13 +30,15 @@ upgrade ... didn't work for some reason (Keyformatter etc.), not tracked.
 
 My work around: invoking SQL commands in the program or via the sql CLI sqlite3> ...
 
+Install: https://www.sqlite.org/download.html
+
 Some useful libraries, tools ... within the tutorial:
 
 Elastic search, RQ, redis-server, httpie, babel, sqlite, sqlaclhemy, ...
 
 ...
 
-Z:\flask\microblog> cmd /v /c "set FLASK_APP=microblog.py&& flask run"
+```Z:\flask\microblog> cmd /v /c "set FLASK_APP=microblog.py&& flask run"```
 
  * Serving Flask app "microblog.py"
  * Environment: production
@@ -209,7 +211,12 @@ Also I had to comment one form validation which was causing an error.
 
 http://localhost:9200
 
-It doesn't start correctly on a RAM disk (imdisk).
+It doesn't start correctly on a RAM disk (imdisk). It was then installed to: 
+
+C:\Elastic
+
+C:\Elastic\bin\elasticsearch.bat
+
 
 Set the env.variable when calling: 
 ``` 
