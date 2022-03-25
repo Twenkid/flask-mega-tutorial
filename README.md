@@ -8,6 +8,8 @@ https://github.com/Twenkid/flask-mega-tutorial/tree/main/version/v23
 
 etc.
 
++ See SQLite cheat sheet at the end -->
+
 ``` 
 cmd /v /c "set FLASK_APP=microblog.py&&set FLASK_ENV=production&&set MAIL_SERVER=localhost&&set MAIL_PORT=8025&&set ELASTICSEARCH_URL=http://localhost:9200&&flask run"
 cmd /v /c "set FLASK_APP=microblog.py&&set FLASK_ENV=development&&set MAIL_SERVER=localhost&&set MAIL_PORT=8025&&set ELASTICSEARCH_URL=http://localhost:9200&&flask run"
@@ -658,3 +660,9 @@ docker run --name microblog -d -p 8000:5000 --rm -e SECRET_KEY=my-secret-key ^
 ```    
 
  
+# SQLite CLI Cheat sheet:
+
+> sqlite3 d.db  --> creates the db file or opens it
+>.schema
+>.backup file.db
+>.exit
